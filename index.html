@@ -420,7 +420,7 @@
             <div class="field-group" style="flex:1"><div class="field-label">Limit kcal</div><input type="number" id="ob-kcal" placeholder="2200" min="500" max="6000"></div>
             <div class="field-group" style="flex:1"><div class="field-label">Cel białka (g)</div><input type="number" id="ob-protein" placeholder="160" min="20" max="500"></div>
         </div>
-        <div class="field-group"><div class="field-label">Klucz API</div><input type="password" id="ob-apikey" placeholder="Używasz klucza domyślnego..."></div>
+        <div class="field-group"><div class="field-label">Klucz API</div><input type="password" id="ob-apikey" placeholder="Wpisz klucz licencyjny"></div>
         <button class="btn-primary" onclick="completeOnboarding()">Zaczynamy →</button>
         <div class="api-hint">Dane przetwarzane lokalnie.</div>
     </div>
@@ -685,11 +685,11 @@
         </div>
         <div class="settings-group">
             <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:7px">
-                <span class="settings-row-label">🔑 Klucz licencyjny</span>
+                <span class="settings-row-label">🔑 Klucz aktywacyjny</span>
                 <input type="password" id="set-apikey" placeholder="AIza..." style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--mono);font-size:0.82rem;padding:0.58rem 0.82rem;width:100%;outline:none">
             </div>
             <div class="settings-row">
-                <span class="settings-row-label">Status API</span>
+                <span class="settings-row-label">Status</span>
                 <div class="api-status"><div class="status-dot" id="api-dot"></div><span id="api-txt" style="font-size:0.73rem;color:var(--text2)">—</span></div>
             </div>
         </div>
@@ -704,7 +704,7 @@
         <div class="settings-group">
             <div class="settings-row">
                 <span class="settings-row-label" style="color:var(--text2);font-size:0.78rem">Wersja oprogramowania</span>
-                <span style="font-size:0.7rem;color:var(--text3);font-family:var(--mono)">v7.6.0</span>
+                <span style="font-size:0.7rem;color:var(--text3);font-family:var(--mono)">v7.8.2</span>
             </div>
             <div class="settings-row" style="background:var(--surface2)">
                 <span class="settings-row-label" style="color:var(--accent2);font-weight:600;font-size:0.8rem">Twórca aplikacji</span>
@@ -780,7 +780,7 @@
     // STATE & CONFIG
     // ════════════════════════════════════
     const STORE = 'bite_v2';
-    const DEFAULT_API_KEY = "";
+    const DEFAULT_API_KEY = "AIzaSyCT2yxmCCcvofBTLYH3ye1L3btX_dWm-RA";
 
     let S = { profile:null, meals:[], activity:{}, weights:[], theme: 'dark' };
     let chartKcal=null, chartProt=null, chartWeight=null;
