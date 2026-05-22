@@ -797,7 +797,6 @@
     let S = { profile:null, meals:[], activity:{}, weights:[], theme: 'dark' };
     let chartKcal=null, chartProt=null, chartWeight=null;
 
-    // EXPANDED ACTIVITY DICTIONARY WITH COMBAT SPORTS AND GROUP CLASSES
     const ACT = {
       gym:'🏋️ Siłownia',
       combat:'🥋 Sztuki walki',
@@ -809,7 +808,6 @@
       rest:'😴 Odpoczynek'
     };
 
-    // SUB-CATEGORIES MAPPING FOR DETAILED SELECTION
     const ACT_SUB = {
       gym: ['Klatka', 'Biceps', 'Barki', 'Triceps', 'Plecy', 'Nogi', 'Cardio'],
       combat: ['BJJ', 'Box', 'Karate', 'MMA', 'Judo'],
@@ -824,21 +822,36 @@
 
     const EMOJIS = ['🍗','🥩','🥗','🍳','🥣','🍕','🍔','🍜','🥘','🍱','🥪','🌮','🍣','🥙','🧆'];
 
+    // Funkcja dynamicznie zwracająca aktualną datę (zapobiega twardemu nadpisywaniu)
+    let getTodayDate = function() { return new Date().toISOString().slice(0,10); };
+    function today() { return getTodayDate(); }
+
     function load() {
       try {
         const r=localStorage.getItem(STORE);
         if(r){
           const d=JSON.parse(r);
-          S.profile=d.profile||null;
-          S.meals=d.meals||[];
-          S.activity=d.activity||{};
-          S.weights=d.weights||[];
-          S.theme=d.theme||'dark';
+          // Bezpiecznik: Nadpisuj tylko jeśli dane faktycznie istnieją w localstorage
+          if(d && (d.profile || d.meals?.length || d.weights?.length)) {
+            S.profile=d.profile||null;
+            S.meals=d.meals||[];
+            S.activity=d.activity||{};
+            S.weights=d.weights||[];
+            S.theme=d.theme||'dark';
+          }
         }
-      } catch(e){}
+      } catch(e){ console.error("Błąd ładowania danych:", e); }
     }
-    function save() { try{localStorage.setItem(STORE,JSON.stringify(S));}catch(e){} }
-    function today() { return new Date().toISOString().slice(0,10); }
+
+    function save() {
+      try {
+        // Bezpiecznik przed zapisaniem pustego stanu widma
+        if (S && typeof S === 'object') {
+          localStorage.setItem(STORE,JSON.stringify(S));
+        }
+      } catch(e){ console.error("Błąd zapisu danych:", e); }
+    }
+
     function prof() { return S.profile||{}; }
     function apiKey() { return prof().apiKey || DEFAULT_API_KEY; }
     function todayMeals() { return S.meals.filter(m=>m.date===today()); }
@@ -854,12 +867,10 @@
     // ════════════════════════════════════
     window.addEventListener('popstate', (e) => {
       if (e.state && e.state.screen) {
-        // Fallback or specific internal route processing if required
         document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
         document.getElementById(e.state.screen).classList.add('active');
         updateNavHighlight(e.state.screen);
       } else {
-        // Default root destination (Home Screen)
         initMain();
         document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
         document.getElementById('screen-main').classList.add('active');
@@ -891,7 +902,6 @@
       applyTheme(S.theme);
       if(!S.profile){show('screen-onboard');return;}
       initMain(); show('screen-main'); checkWeeklyWeight();
-      // Re-adjust initial root history state
       history.replaceState({ screen: 'screen-main' }, '', '');
       toast('🔄 Dane zsynchronizowane pomyślnie!');
     });
@@ -925,7 +935,7 @@
     // ════════════════════════════════════
     // ONBOARDING
     // ════════════════════════════════════
-   function completeOnboarding(){
+    function completeOnboarding(){
       const weight=+$('ob-weight').value, gender=$('ob-gender').value;
       const height=+$('ob-height').value, age=+$('ob-age').value;
       const kcal=+$('ob-kcal').value, protein=+$('ob-protein').value;
@@ -943,7 +953,7 @@
     // MAIN
     // ════════════════════════════════════
     function initMain(){
-      $('today-date').textContent=new Date().toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'});
+      $('today-date').textContent=new Date(today() + 'T12:00:00').toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'});
       updateSummary(); renderMeals(); buildActivityChips(); renderActivityBar();
     }
     function showMain(){ initMain(); show('screen-main'); setNav('nav-home'); }
@@ -1111,7 +1121,6 @@
       $('activity-sheet-title').textContent = ACT[key];
       $('activity-duration').value = "";
 
-      // Check if subcategories exist for the selected activity key
       if(ACT_SUB[key]) {
         $('gym-subcategories').style.display = 'block';
         $('subcategory-label').textContent = SUB_LABELS[key] || 'Szczegóły';
@@ -1124,34 +1133,11 @@
         $('gym-subcategories').style.display = 'none';
       }
       $('activity-sheet').classList.add('open');
+      $('live-burn-box').style.display = 'none';
     }
 
     function toggleWorkoutChip(el) { el.classList.toggle('active'); }
     function closeActivitySheet() { $('activity-sheet').classList.remove('open'); tempActivityKey=null; }
-
-    function saveActivityDetails() {
-      const duration = +$('activity-duration').value;
-      if(!duration || duration <= 0) { toast('⚠️ Wpisz poprawny czas trwania'); return; }
-
-      const t = today();
-      let subcategories = [];
-
-      if(ACT_SUB[tempActivityKey]) {
-        document.querySelectorAll('#subcategory-grid .workout-chip.active').forEach(chip => {
-          subcategories.push(chip.getAttribute('data-part'));
-        });
-        if(subcategories.length === 0) { toast('⚠️ Wybierz co najmniej jedną opcję'); return; }
-      }
-
-      S.activity[t] = {
-        type: tempActivityKey,
-        duration: duration,
-        subparts: subcategories
-      };
-
-      save(); closeActivitySheet(); renderActivityBar();
-      toast(`✅ Zapisano: ${ACT[tempActivityKey]} (${duration} min)`);
-    }
 
     // ════════════════════════════════════
     // SHEET & GEMINI ANALYSIS
@@ -1234,7 +1220,12 @@
         const d = JSON.parse(cleanJson(r)); S.cur = {...d, type: 'photo'};
         $('rp-kcal').textContent = d.kcal; $('rp-prot').textContent = d.protein + 'g'; $('rp-desc').textContent = d.desc;
         $('result-photo').classList.add('show'); $('confirm-photo').classList.add('show');
-        $('rp-desc-edit').value = d.name || d.desc || 'Posiłek ze zdjęcia';
+
+        // Zabezpieczenie przed brakiem elementu edycji opisu w APK
+        const editField = $('rp-desc-edit');
+        if(editField) {
+          editField.value = d.name || d.desc || 'Posiłek ze zdjęcia';
+        }
       }catch(e){toast('❌ ' + e.message); console.error(e);}
       finally{$('load-photo').classList.remove('show');}
     }
@@ -1243,14 +1234,16 @@
       const r=S.cur; if(!r)return;
       const now=new Date();
 
-      // Jeśli posiłek był dodawany ze zdjęcia, pobieramy tekst z pola edycji
       let finalName = r.name || 'Posiłek';
       if(r.type === 'photo') {
-        finalName = $('rp-desc-edit').value.trim() || finalName;
+        const editField = $('rp-desc-edit');
+        if(editField && editField.value.trim()) {
+          finalName = editField.value.trim();
+        }
       }
 
       S.meals.push({
-        id:Date.now(), date:today(), name:finalName, kcal:parseInt(r.kcal), protein:parseFloat(r.protein),
+        id:Date.now(), date:today(), name:finalName, kcal:parseInt(r.kcal)||0, protein:parseFloat(r.protein)||0,
         emoji:EMOJIS[Math.floor(Math.random()*EMOJIS.length)], time:now.toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'})
       });
       save(); closeSheet(); updateSummary(); renderMeals();
@@ -1307,7 +1300,7 @@
 
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:0.42rem 0;border-bottom:1px solid var(--border)">
           <span style="font-size:0.78rem;color:var(--text2)">${lbl}</span>
-          <span style="font-size:0.8rem;${act?'color:'+actColor[act].type:''}">${act?ACT[act.type]+subInfo:'<span style="color:var(--text3)">—</span>'}</span>
+          <span style="font-size:0.8rem;${act?'color:'+actColor[act.type]:''}">${act?ACT[act.type]+subInfo:'<span style="color:var(--text3)">—</span>'}</span>
         </div>`;
       }).join('');
     }
@@ -1344,7 +1337,7 @@
       chartWeight=new Chart($('chart-weight'),{type:'line',data:{labels,datasets:[{data,borderColor:'#4ecdc4',backgroundColor:'rgba(78,205,196,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4ecdc4',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:S.theme==='light'?'#606972':'#555870',font:{size:10},maxRotation:40},grid:{color:S.theme==='light'?'#dcdfe6':'#2e3147'}},y:{ticks:{color:S.theme==='light'?'#606972':'#555870',font:{size:10},callback:v=>v+' kg'},grid:{color:S.theme==='light'?'#dcdfe6':'#2e3147'}}}}});
     }
     function saveWeight(){
-      const val=+$('weight-input').value; if(!val||val<30||val>300){toast('⚠️ Podaj prawidłową waję');return;}
+      const val=+$('weight-input').value; if(!val||val<30||val>300){toast('⚠️ Podaj prawidłową wagę');return;}
       const t=today(), idx=S.weights.findIndex(w=>w.date===t);
       if(idx>=0)S.weights[idx].val=val; else S.weights.push({date:t,val});
       save(); $('weight-input').value=''; toast('⚖️ Waga zapisana'); renderWeightScreen();
@@ -1370,7 +1363,7 @@
       const p=prof(), meals=todayMeals(), t=today();
       const tk=meals.reduce((s,m)=>s+m.kcal,0), tp=meals.reduce((s,m)=>s+m.protein,0);
       const act=S.activity[t];
-      $('rep-date-lbl').textContent=new Date().toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'});
+      $('rep-date-lbl').textContent=new Date(t + 'T12:00:00').toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'});
       $('rep-kcal-big').textContent=tk;
       $('rep-kcal-sub').textContent='z '+(p.kcal||2200)+' kcal limitu';
       $('rep-prot').textContent=tp+'g'; $('rep-prot-target').textContent=(p.protein||160)+'g';
@@ -1396,7 +1389,6 @@
       $('ai-report').style.display='none'; $('load-report').style.display='none';
       navigateTo('screen-report', 'nav-report');
       renderHistoryList();
-
     }
 
     async function generateAIReport(){
@@ -1509,7 +1501,6 @@
     }
 
     zapStaleKeys();
-    // WSPÓŁCZYNNIKI MET DLA KALKULATORA SPALANIA KALORII
     const MET = { gym: 6.0, combat: 10.3, group: 7.8, walk: 3.5, swim: 8.0, bike: 7.5, sauna: 1.5, rest: 1.0 };
 
     function liveCalculateBurn() {
@@ -1519,25 +1510,14 @@
       const currentWeight = S.weights.slice().sort((a,b)=>b.date.localeCompare(a.date))[0]?.val || prof().weight || 75;
       const metVal = MET[tempActivityKey] || 1.0;
 
-      // Standaryzowany wzór na spalanie na minutę: (MET * 3.5 * waga) / 200
       let burn = Math.round((metVal * 3.5 * currentWeight / 200) * duration);
-
-      // Korekcja algorytmiczna o wiek i wzrost (Mifflin-St Jeor delta)
       const age = prof().age || 30;
-      if (age > 40) burn = Math.round(burn * 0.95); // Naturalny spadek metabolizmu
+      if (age > 40) burn = Math.round(burn * 0.95);
 
       $('live-burn-value').textContent = burn + ' kcal';
       $('live-burn-box').style.display = 'flex';
     }
 
-    // Nadpisanie otwierania arkusza, aby resetować kalkulator live
-    const originalOpenActivitySheet = openActivitySheet;
-    openActivitySheet = function(key) {
-      originalOpenActivitySheet(key);
-      $('live-burn-box').style.display = 'none';
-    }
-
-    // Integracja wyliczonych kalorii ze strukturą zapisu aktywności
     const originalSaveActivityDetails = saveActivityDetails;
     saveActivityDetails = function() {
       const duration = +$('activity-duration').value;
@@ -1561,18 +1541,16 @@
         type: tempActivityKey,
         duration: duration,
         subparts: subcategories,
-        burnedKcal: burn // Zapisujemy wyliczone spalanie
+        burnedKcal: burn
       };
 
       save(); $('activity-sheet').classList.remove('open'); tempActivityKey=null; renderActivityBar();
       toast(`🔥 Zapisano: ${ACT[S.activity[t].type]} (Spalono: ${burn} kcal!)`);
     }
 
-    // OBSŁUGA EKRANU HISTORII
-
-
     function renderHistoryList() {
       const container = $('history-list-container');
+      if(!container) return;
 
       const allDates = Array.from(new Set([
         ...S.meals.map(m => m.date),
@@ -1616,22 +1594,19 @@
       }).join('');
     }
 
-    // NOWA FUNKCJA LOGICZNA: Podmienia dynamicznie dzisiejszą datę systemową na wybraną z historii
-    // NOWA FUNKCJA LOGICZNA: Podmienia dynamicznie dzisiejszą datę systemową na wybraną z historii
     function editPastDay(targetDate) {
       if(!confirm(`Czy chcesz otworzyć dzień ${targetDate} do pełnej edycji (dodawanie/modyfikacja posiłków i aktywności)?`)) return;
 
-      // Dynamicznie nadpisujemy funkcję dzisiejszej daty lokalnej
-      today = function() { return targetDate; };
+      // Zamiast nadpisywać całą funkcję today, zmieniamy tylko wartość zwracaną przez bezpieczną zmienną
+      getTodayDate = function() { return targetDate; };
 
-      // Odświeżamy widoki główne na bazie wybranej daty archiwalnej
       initMain();
       showMain();
 
-      // Informujemy wizualnie użytkownika o pracy w trybie archiwalnym
       $('today-date').innerHTML = `⚠️ TRYB EDYCJI HISTORII: <span style="color:var(--accent3); font-weight:700;">${targetDate}</span>`;
-      toast(`✏️ Przełączono na edycję dnia: ${targetDate}. Każdy dodany posiłek/aktywność trafi do tego raportu.`);
+      toast(`✏️ Przełączono na edycję dnia: ${targetDate}`);
     }
+
 </script>
 </body>
 </html>
