@@ -28,16 +28,13 @@
         *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
         html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font);overscroll-behavior:none;transition: background 0.3s, color 0.3s;}
 
-        /* ALL SCREENS END PRECISELY ABOVE THE FIXED BOTTOM NAVIGATION BAR */
         .screen{display:none;flex-direction:column;height:calc(100dvh - env(safe-area-inset-bottom, 0px) - 4.2rem);overflow:hidden}
         .screen.active{display:flex}
 
-        /* EXCEPTION FOR ONBOARDING SCREEN WHICH LACKS THE BOTTOM NAV */
         #screen-onboard.screen {
           height: 100dvh;
         }
 
-        /* HEADER WITH SAFE AREA TOP */
         .top-bar {
           display: flex;
           align-items: center;
@@ -88,7 +85,6 @@
           letter-spacing: -0.3px;
         }
 
-        /* BRANDING */
         .logo-box {
           font-size: 1.6rem;
           background: var(--surface2);
@@ -112,7 +108,6 @@
           border: 1px solid var(--border);
         }
 
-        /* ONBOARDING */
         .onboard-sub{color:var(--text2);font-size:0.85rem;margin-bottom:1.75rem;text-align:center}
         .onboard-form{width:100%;max-width:340px;display:flex;flex-direction:column;gap:0.85rem}
         .field-label{font-size:0.72rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
@@ -132,7 +127,6 @@
         .icon-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text2);cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;transition:color 0.2s,background 0.2s}
         .icon-btn:active{background:var(--surface2);color:var(--text)}
 
-        /* ACTIVITY BAR */
         .activity-bar{margin:0.6rem 1.1rem 0;padding:0.65rem 0.9rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0;overflow:hidden}
         .activity-label{font-size:0.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.55rem}
         .activity-scroll-wrapper{overflow-x:auto;width:100%;display:flex;-webkit-overflow-scrolling:touch}
@@ -143,7 +137,6 @@
         .act-chip.sel-gym{background:#ff6b6b!important;border-color:#ff6b6b!important;color:#fff!important;}
         .act-chip.sel-rest{background:#555870!important;border-color:#555870!important;color:#fff!important;}
 
-        /* SUMMARY RING */
         .summary-card{margin:0.6rem 1.1rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:0.8rem 1rem;flex-shrink:0}
         .summary-top{display:flex;align-items:center;gap:1rem}
         .ring-wrap{position:relative;width:80px;height:80px;flex-shrink:0}
@@ -164,13 +157,11 @@
         .remain-chip .val{font-size:0.9rem;font-weight:600;font-family:var(--mono)}
         .remain-chip .lbl{font-size:0.6rem;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px}
 
-        /* MEALS LIST */
         .section-header{display:flex;justify-content:space-between;align-items:center;padding:0 1.1rem;margin-bottom:0.35rem;flex-shrink:0}
         .section-title{font-size:0.75rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
         .scroll-area{flex:1;overflow-y:auto;padding:0 1.1rem 0.5rem}
         .scroll-area::-webkit-scrollbar{width:0}
 
-        /* MEAL SWIPE ACTIONS */
         .meal-wrap{position:relative;margin-bottom:0.45rem;overflow:hidden;border-radius:var(--radius-sm);background: var(--surface2);min-height: 58px;}
         .meal-actions{position:absolute;right:0;top:0;bottom:0;display:flex;align-items:stretch;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index: 1;}
         .meal-wrap.swiped .meal-actions{opacity:1;pointer-events:all}
@@ -193,7 +184,6 @@
         .empty-icon{font-size:2rem;margin-bottom:0.5rem}
         .empty-text{font-size:0.8rem}
 
-        /* FIXING OVERLAYS & SHEETS POSITION ABOVE THE BOTTOM NAV */
         .overlay {
           position: fixed;
           inset: 0;
@@ -225,7 +215,6 @@
         .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
         .tab-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 
-        /* ALLOW FULL SCROLLING INSIDE OVERLAYS SO NO BUTTONS ARE CHOPPED */
         .tab-content {
           display: none;
           flex-direction: column;
@@ -237,7 +226,6 @@
         .tab-content.active{display:flex}
         .tab-content::-webkit-scrollbar { width: 0; }
 
-        /* SUB-COMPONENTS */
         textarea{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font);font-size:0.9rem;padding:0.75rem 0.9rem;resize:none;outline:none;transition:border-color 0.2s;min-height:88px;flex-shrink:0}
         textarea:focus{border-color:var(--accent)}
         textarea::placeholder{color:var(--text3)}
@@ -263,15 +251,12 @@
         .btn-analyze{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font);font-size:0.88rem;font-weight:500;padding:0.78rem;cursor:pointer;transition:border-color 0.2s,background 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;flex-shrink:0}
         .btn-analyze svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round}
 
-        /* DATA MANAGEMENT BUTTONS FIXED WIDTH ISSUES */
         .btn-secondary{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font);font-size:0.86rem;font-weight:500;padding:0.78rem 1rem;cursor:pointer;transition:all 0.2s;text-align:center;width:100%;display:block;margin-bottom:0.55rem;box-sizing:border-box}
 
-        /* GRID CHOICE FOR WORKOUT */
         .workout-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1rem;}
         .workout-chip{border:1px solid var(--border);background:var(--surface2);border-radius:8px;padding:0.5rem;font-size:0.75rem;text-align:center;cursor:pointer;color:var(--text2);user-select:none;}
         .workout-chip.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-        /* FIXING EDIT MODAL OVERLAY */
         .edit-modal-overlay {
           position: fixed;
           inset: 0;
@@ -299,7 +284,6 @@
         .edit-btn-cancel{background:var(--surface2);color:var(--text2)}
         .edit-btn-save{background:var(--accent);color:#fff}
 
-        /* IMMUTABLE BOTTOM NAVIGATION FUNDAMENTAL BAR - FIXED GLOBALLY AT THE ROOT */
         .bottom-nav {
           position: fixed;
           bottom: 0;
@@ -322,7 +306,6 @@
         .nav-add:active .nav-add-inner{transform:scale(0.9)}
         .nav-add svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round}
 
-        /* CHARTS / ANALIZA CONTAINER SCROLL */
         #screen-charts{background:var(--bg)}
         .charts-scroll{flex:1;overflow-y:auto;padding:1rem 1.1rem 1.5rem}
         .charts-scroll::-webkit-scrollbar{width:0}
@@ -330,7 +313,6 @@
         .chart-card-title{font-size:0.72rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem}
         .chart-wrap{position:relative;height:175px}
 
-        /* WEIGHT CONTAINER SCROLL */
         #screen-weight{background:var(--bg)}
         .weight-scroll{flex:1;overflow-y:auto;padding:1rem 1.1rem 1.5rem}
         .weight-scroll::-webkit-scrollbar{width:0}
@@ -344,10 +326,9 @@
         .weight-row{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0;border-bottom:1px solid var(--border)}
         .weight-row:last-child{border-bottom:none}
         .weight-row-date{font-size:0.8rem;color:var(--text2)}
-        .weight-row-val覆{font-size:0.95rem;font-weight:600;font-family:var(--mono);color:var(--accent2)}
+        .weight-row-val{font-size:0.95rem;font-weight:600;font-family:var(--mono);color:var(--accent2)}
         .weight-row-diff{font-size:0.7rem;margin-left:6px}
 
-        /* REPORT CONTAINER SCROLL */
         #screen-report{background:var(--bg)}
         .report-scroll{flex:1;overflow-y:auto;padding:1rem 1.1rem 1.5rem}
         .report-scroll::-webkit-scrollbar{width:0}
@@ -363,13 +344,11 @@
         .btn-gen-report{background:linear-gradient(135deg,var(--accent) 0%,#5b4fd4 100%);border:none;border-radius:var(--radius-sm);color:#fff;font-family:var(--font);font-size:0.9rem;font-weight:600;padding:0.82rem;cursor:pointer;width:100%;margin-bottom:0.8rem;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 4px 18px rgba(124,106,247,0.3);transition:opacity 0.2s}
         .btn-gen-report svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 
-        /* SETTINGS CONTAINER SCROLL - FIXED PADDING TO GUARANTEE SCROLLING UP TO THE VERY BOTTOM FOOTER */
         #screen-settings{background:var(--bg)}
         .settings-scroll{flex:1;overflow-y:auto;padding:1rem 1.1rem 4rem;display:flex;flex-direction:column;gap:0.9rem}
         .settings-scroll::-webkit-scrollbar{width:0}
         .settings-group{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;flex-shrink:0}
 
-        /* ENSURES INPUTS AND UNITS STAY RIGIDLY IN ONE SINGLE LINE */
         .settings-row{display:flex;align-items:center;justify-content:space-between;padding:0.82rem 1rem;border-bottom:1px solid var(--border);white-space:nowrap;}
         .settings-row:last-child{border-bottom:none}
         .settings-row-label{font-size:0.86rem}
@@ -384,20 +363,44 @@
         .status-dot.ok{background:var(--success)}
         .status-dot.err{background:var(--danger)}
 
-       /* HISTORIA SCREEN SCROLL */
         #screen-history{background:var(--bg)}
         .history-scroll{flex:1;overflow-y:auto;padding:1rem 1.1rem 1.5rem;display:flex;flex-direction:column;gap:0.9rem}
         .history-scroll::-webkit-scrollbar{width:0}
         .history-empty{text-align:center;color:var(--text3);padding:3rem 1rem;font-size:0.9rem}
         .history-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;display:flex;flex-direction:column;gap:0.6rem}
-        .history-card-top{display:flex;justify-content:between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:0.5rem}
+        .history-card-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:0.5rem}
         .history-date{font-size:0.9rem;font-weight:600;color:var(--accent)}
         .history-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.2rem}
         .history-item{background:var(--surface2);padding:0.5rem;border-radius:var(--radius-sm);font-size:0.75rem;color:var(--text2)}
         .history-item span{display:block;font-size:0.95rem;font-weight:700;color:var(--text);font-family:var(--mono)}
+
+        .modal-overlay {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999;
+          display: none; align-items: center; justify-content: center; backdrop-filter: blur(6px); padding: 20px;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal-box {
+          background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+          padding: 1.5rem; width: 100%; max-width: 320px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .modal-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; }
+        .modal-sub { font-size: 0.8rem; color: var(--text2); margin-bottom: 1.2rem; line-height: 1.4; }
+        .modal-weight-inp {
+          background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+          color: var(--text); font-family: var(--mono); font-size: 1.7rem; font-weight: 700;
+          padding: 0.6rem; width: 100%; text-align: center; outline: none; margin-bottom: 1.2rem;
+        }
+        .modal-btns { display: flex; gap: 0.6rem; }
+        .modal-btn {
+          flex: 1; padding: 0.75rem; border-radius: var(--radius-sm); border: none;
+          font-family: var(--font); font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+          background: var(--surface2); color: var(--text2);
+        }
+        .modal-btn.primary { background: var(--accent); color: #fff; }
     </style>
 </head>
 <body>
+
 <div id="screen-onboard" class="screen">
     <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:0.2rem;padding-top:1.5rem">
         <div class="logo-box">🥗</div>
@@ -423,7 +426,6 @@
     </div>
 </div>
 
-
 <div id="screen-main" class="screen">
     <div class="top-bar">
         <div>
@@ -431,11 +433,8 @@
                 <div class="logo-box-mini" style="display: flex; align-items: center; justify-content: center;">
                     <svg viewBox="0 0 422 471" style="width: 24px; height: 24px; fill: none; stroke: var(--text); stroke-width: 15; stroke-linecap: round; stroke-linejoin: round;" xmlns="http://www.w3.org/2000/svg">
                         <path d="M129 119 C 110 119, 83 146, 83 165 V 401 C 83 420, 110 447, 129 447 H 345 C 364 447, 391 420, 391 401 V 165 C 391 146, 364 119, 345 119 Z M262 31 V 81 M170 31 H 304 C 323 31, 350 58, 350 77 M170 31 C 151 31, 124 58, 124 77 V 81 H 262 Z"/>
-
                         <path d="M83 234 C 75 220, 100 210, 108 224 C 116 238, 91 248, 83 234 Z M83 268 C 75 254, 100 244, 108 258 C 116 272, 91 282, 83 268 Z M83 302 C 75 288, 100 278, 108 292 C 116 306, 91 316, 83 302 Z" fill="var(--bg)"/>
-
                         <path d="M178 198 H 222 C 238 198, 251 211, 251 227 C 251 243, 238 256, 222 256 H 178 V 300 M178 256 H 222" stroke-width="25"/>
-
                         <path d="M285 240 V 284 M263 262 H 307" stroke-width="25"/>
                     </svg>
                 </div>
@@ -454,8 +453,7 @@
     <div class="activity-bar">
         <div class="activity-label">Aktywność dzisiaj</div>
         <div class="activity-scroll-wrapper">
-            <div class="activity-options" id="activity-options-container">
-            </div>
+            <div class="activity-options" id="activity-options-container"></div>
         </div>
     </div>
 
@@ -543,12 +541,11 @@
                 <input type="text" id="rp-desc-edit" style="font-size:0.85rem; padding:0.5rem 0.75rem; margin-bottom:5px;" placeholder="Nazwa posiłku...">
                 <div class="result-desc" id="rp-desc" style="display:none"></div>
             </div>
-
-
             <button class="btn-confirm" id="confirm-photo" onclick="confirmMeal()">✓ Dodaj do dziennika</button>
         </div>
     </div>
 </div>
+
 <div class="overlay" id="activity-sheet" onclick="if(event.target===this) closeActivitySheet()">
     <div class="sheet" style="max-height: 75dvh; overflow-y: auto;">
         <div class="sheet-handle"></div>
@@ -557,12 +554,10 @@
             <div class="field-label">Czas trwania (minuty)</div>
             <input type="number" id="activity-duration" placeholder="np. 45" min="1" max="480" oninput="liveCalculateBurn()">
         </div>
-
         <div id="live-burn-box" style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.25); padding:0.65rem 0.85rem; border-radius:var(--radius-sm); margin-bottom:1rem; display:none; justify-content:space-between; align-items:center;">
             <span style="font-size:0.8rem; color:var(--text2)">Szacowane spalone kalorie:</span>
             <span style="font-size:1.1rem; font-weight:700; color:#ff6b6b; font-family:var(--mono)" id="live-burn-value">0 kcal</span>
         </div>
-
         <div id="gym-subcategories" style="display:none;">
             <div class="field-label" style="margin-bottom:8px" id="subcategory-label">Trenowane partie mięśniowe</div>
             <div class="workout-grid" id="subcategory-grid"></div>
@@ -573,7 +568,6 @@
         </div>
     </div>
 </div>
-
 
 <div id="screen-charts" class="screen">
     <div class="screen-header">
@@ -653,13 +647,11 @@
             <div class="rep-section-title">Wszystkie posiłki</div>
             <div id="rep-meals-list"></div>
         </div>
-
         <div class="rep-section" style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.2rem;">
             <div class="rep-section-title" style="color: var(--accent); font-weight: 700;">📜 Archiwum dni (Historia)</div>
-            <div class="history-scroll" id="history-list-container" style="padding: 0.5rem 0 0 0; gap: 0.9rem; display: flex; flex-direction: column;">
-            </div>
+            <div class="history-scroll" id="history-list-container" style="padding: 0.5rem 0 0 0; gap: 0.9rem; display: flex; flex-direction: column;"></div>
         </div>
-    </div> </div>
+    </div>
 </div>
 
 <div id="screen-settings" class="screen">
@@ -693,7 +685,7 @@
         </div>
         <div class="settings-group">
             <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:7px">
-                <span class="settings-row-label">🔑 API Key</span>
+                <span class="settings-row-label">🔑 Klucz licencyjny</span>
                 <input type="password" id="set-apikey" placeholder="AIza..." style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--mono);font-size:0.82rem;padding:0.58rem 0.82rem;width:100%;outline:none">
             </div>
             <div class="settings-row">
@@ -701,18 +693,14 @@
                 <div class="api-status"><div class="status-dot" id="api-dot"></div><span id="api-txt" style="font-size:0.73rem;color:var(--text2)">—</span></div>
             </div>
         </div>
-
         <div class="settings-group" style="padding: 0.85rem 1rem;">
             <div class="field-label" style="margin-bottom:8px;">Zarządzanie danymi</div>
             <button class="btn-secondary" onclick="exportData()">💾 Kopia zapasowa (Eksport)</button>
             <button class="btn-secondary" onclick="triggerImport()">📁 Przywróć dane (Import)</button>
             <input type="file" id="import-file-input" accept=".json" style="display:none;" onchange="importData(event)">
         </div>
-
         <button class="btn-save-settings" onclick="saveSettings()">Zapisz ustawienia</button>
-
         <button class="danger-btn" onclick="resetDay()">🗑️ Wyczyść dzisiejsze dane</button>
-
         <div class="settings-group">
             <div class="settings-row">
                 <span class="settings-row-label" style="color:var(--text2);font-size:0.78rem">Wersja oprogramowania</span>
@@ -792,7 +780,7 @@
     // STATE & CONFIG
     // ════════════════════════════════════
     const STORE = 'bite_v2';
-    const DEFAULT_API_KEY = "AIzaSyBd0kT0JOEEHtj63_HZtFFarFqiQ37K7Gg";
+    const DEFAULT_API_KEY = "AIzaSyAaC0vy7_8KG9Uj0TIVZf3OWV0S3Buv3x4";
 
     let S = { profile:null, meals:[], activity:{}, weights:[], theme: 'dark' };
     let chartKcal=null, chartProt=null, chartWeight=null;
@@ -822,7 +810,6 @@
 
     const EMOJIS = ['🍗','🥩','🥗','🍳','🥣','🍕','🍔','🍜','🥘','🍱','🥪','🌮','🍣','🥙','🧆'];
 
-    // Funkcja dynamicznie zwracająca aktualną datę (zapobiega twardemu nadpisywaniu)
     let getTodayDate = function() { return new Date().toISOString().slice(0,10); };
     function today() { return getTodayDate(); }
 
@@ -831,7 +818,6 @@
         const r=localStorage.getItem(STORE);
         if(r){
           const d=JSON.parse(r);
-          // Bezpiecznik: Nadpisuj tylko jeśli dane faktycznie istnieją w localstorage
           if(d && (d.profile || d.meals?.length || d.weights?.length)) {
             S.profile=d.profile||null;
             S.meals=d.meals||[];
@@ -840,12 +826,12 @@
             S.theme=d.theme||'dark';
           }
         }
+        zapStaleKeys();
       } catch(e){ console.error("Błąd ładowania danych:", e); }
     }
 
     function save() {
       try {
-        // Bezpiecznik przed zapisaniem pustego stanu widma
         if (S && typeof S === 'object') {
           localStorage.setItem(STORE,JSON.stringify(S));
         }
@@ -862,9 +848,6 @@
       return d;
     }
 
-    // ════════════════════════════════════
-    // ANDROID BACK GESTURE AND NAVIGATION MANAGER
-    // ════════════════════════════════════
     window.addEventListener('popstate', (e) => {
       if (e.state && e.state.screen) {
         document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -894,9 +877,6 @@
       setNav(mapping[screenId] || null);
     }
 
-    // ════════════════════════════════════
-    // BOOT
-    // ════════════════════════════════════
     load();
     window.addEventListener('DOMContentLoaded',()=>{
       applyTheme(S.theme);
@@ -909,9 +889,6 @@
     function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function setNav(id){ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); if(id)document.getElementById(id)?.classList.add('active'); }
 
-    // ════════════════════════════════════
-    // THEME MANAGER
-    // ════════════════════════════════════
     function toggleTheme() {
       const newTheme = S.theme === 'light' ? 'dark' : 'light';
       applyTheme(newTheme);
@@ -932,9 +909,6 @@
       }
     }
 
-    // ════════════════════════════════════
-    // ONBOARDING
-    // ════════════════════════════════════
     function completeOnboarding(){
       const weight=+$('ob-weight').value, gender=$('ob-gender').value;
       const height=+$('ob-height').value, age=+$('ob-age').value;
@@ -949,9 +923,6 @@
       save(); initMain(); show('screen-main');
     }
 
-    // ════════════════════════════════════
-    // MAIN
-    // ════════════════════════════════════
     function initMain(){
       $('today-date').textContent=new Date(today() + 'T12:00:00').toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'});
       updateSummary(); renderMeals(); buildActivityChips(); renderActivityBar();
@@ -1075,9 +1046,6 @@
       toast(`✅ Zaktualizowano posiłek`);
     }
 
-    // ════════════════════════════════════
-    // DYNAMIC ACTIVITY MANAGER
-    // ════════════════════════════════════
     let tempActivityKey = null;
 
     function buildActivityChips() {
@@ -1103,11 +1071,7 @@
       }
 
       if(key === 'rest') {
-        S.activity[t] = {
-          type: 'rest',
-          duration: 1440,
-          subparts: []
-        };
+        S.activity[t] = { type: 'rest', duration: 1440, subparts: [] };
         save(); renderActivityBar();
         toast(`✅ Zapisano: ${ACT['rest']} (Cały dzień)`);
         return;
@@ -1139,9 +1103,6 @@
     function toggleWorkoutChip(el) { el.classList.toggle('active'); }
     function closeActivitySheet() { $('activity-sheet').classList.remove('open'); tempActivityKey=null; }
 
-    // ════════════════════════════════════
-    // SHEET & GEMINI ANALYSIS
-    // ════════════════════════════════════
     function openSheet(){ $('add-sheet').classList.add('open'); resetSheet(); }
     function closeSheet(){ $('add-sheet').classList.remove('open'); }
     function closeSheetOut(e){ if(e.target===$('add-sheet'))closeSheet(); }
@@ -1159,9 +1120,10 @@
       $('tab-'+t).classList.add('active'); $('content-'+t).classList.add('active');
     }
 
+    // Stabilny i zaktualizowany mechanizm łączności z API Gemini v1beta
     async function gemini(messages){
       const key=apiKey(); if(!key)throw new Error('Brak klucza API');
-      const url=`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${key}`;
+      const url=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1221,7 +1183,6 @@
         $('rp-kcal').textContent = d.kcal; $('rp-prot').textContent = d.protein + 'g'; $('rp-desc').textContent = d.desc;
         $('result-photo').classList.add('show'); $('confirm-photo').classList.add('show');
 
-        // Zabezpieczenie przed brakiem elementu edycji opisu w APK
         const editField = $('rp-desc-edit');
         if(editField) {
           editField.value = d.name || d.desc || 'Posiłek ze zdjęcia';
@@ -1251,9 +1212,6 @@
       toast(`🍗 Dodano! Zostało: ${Math.max(0,(p.kcal||2200)-tk)} kcal`);
     }
 
-    // ════════════════════════════════════
-    // CHARTS / ANALIZA
-    // ════════════════════════════════════
     function showCharts(){ navigateTo('screen-charts', 'nav-charts'); setTimeout(renderCharts,60); }
     function mkChartOpts(unit){
       const gridColor = S.theme === 'light' ? '#dcdfe6' : '#2e3147';
@@ -1305,9 +1263,6 @@
       }).join('');
     }
 
-    // ════════════════════════════════════
-    // WEIGHT
-    // ════════════════════════════════════
     function zapStaleKeys() {
       if (S.profile && S.profile.apiKey && S.profile.apiKey !== DEFAULT_API_KEY) {
          if (S.profile.apiKey.startsWith("AIzaSyCKxYUJ")) {
@@ -1337,7 +1292,7 @@
       chartWeight=new Chart($('chart-weight'),{type:'line',data:{labels,datasets:[{data,borderColor:'#4ecdc4',backgroundColor:'rgba(78,205,196,0.08)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#4ecdc4',fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:S.theme==='light'?'#606972':'#555870',font:{size:10},maxRotation:40},grid:{color:S.theme==='light'?'#dcdfe6':'#2e3147'}},y:{ticks:{color:S.theme==='light'?'#606972':'#555870',font:{size:10},callback:v=>v+' kg'},grid:{color:S.theme==='light'?'#dcdfe6':'#2e3147'}}}}});
     }
     function saveWeight(){
-      const val=+$('weight-input').value; if(!val||val<30||val>300){toast('⚠️ Podaj prawidłową wagę');return;}
+      const val=+$('weight-input').value; if(!val||val<30||val>300){toast('⚠️ Podaj prawidłową wargę');return;}
       const t=today(), idx=S.weights.findIndex(w=>w.date===t);
       if(idx>=0)S.weights[idx].val=val; else S.weights.push({date:t,val});
       save(); $('weight-input').value=''; toast('⚖️ Waga zapisana'); renderWeightScreen();
@@ -1356,9 +1311,6 @@
       save(); closeWeightModal(); toast('⚖️ Waga zapisana');
     }
 
-    // ════════════════════════════════════
-    // REPORT
-    // ════════════════════════════════════
     function showReport(){
       const p=prof(), meals=todayMeals(), t=today();
       const tk=meals.reduce((s,m)=>s+m.kcal,0), tp=meals.reduce((s,m)=>s+m.protein,0);
@@ -1423,9 +1375,6 @@
       finally{$('load-report').style.display='none';}
     }
 
-    // ════════════════════════════════════
-    // SETTINGS & BACKUP (EXPORT/IMPORT)
-    // ════════════════════════════════════
     function showSettings(){
       const p=prof();
       $('set-weight').value=p.weight||''; $('set-kcal').value=p.kcal||'';
@@ -1433,13 +1382,18 @@
       checkApiStatus(); navigateTo('screen-settings', null);
     }
 
+    // Odnowiona funkcja sprawdzania statusu zgodna ze standardem v1beta i bez błędów CORS
     async function checkApiStatus(){
       const dot=$('api-dot'), txt=$('api-txt'); dot.className='status-dot'; txt.textContent='Sprawdzam...';
       try{
         const k=$('set-apikey').value.trim()||apiKey(); if(!k){txt.textContent='Brak klucza';return;}
-        await gemini([{role:'user',parts:[{text: 'Zwróć surowy tekst "{}"'}]}]);
+        // Super proste, lekkie zapytanie tekstowe zamiast parsowania pustego JSON-a
+        await gemini([{role:'user',parts:[{text: 'Odpowiedz tylko słowem OK'}]}]);
         dot.className='status-dot ok'; txt.textContent='Połączono ✓';
-      }catch(e){dot.className='status-dot err'; txt.textContent='Błąd połączenia';}
+      }catch(e){
+        console.error("Błąd walidacji klucza Gemini:", e);
+        dot.className='status-dot err'; txt.textContent='Błąd połączenia';
+      }
     }
 
     function exportData() {
@@ -1489,9 +1443,6 @@
       save(); initMain(); toast('🗑️ Dane wyczyszczone');
     }
 
-    // ════════════════════════════════════
-    // UTILS
-    // ════════════════════════════════════
     function $(id){ return document.getElementById(id); }
     function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     function toast(msg){
@@ -1500,7 +1451,6 @@
       document.body.appendChild(t); setTimeout(()=>t.remove(),2700);
     }
 
-    zapStaleKeys();
     const MET = { gym: 6.0, combat: 10.3, group: 7.8, walk: 3.5, swim: 8.0, bike: 7.5, sauna: 1.5, rest: 1.0 };
 
     function liveCalculateBurn() {
@@ -1518,8 +1468,7 @@
       $('live-burn-box').style.display = 'flex';
     }
 
-    const originalSaveActivityDetails = saveActivityDetails;
-    saveActivityDetails = function() {
+    function saveActivityDetails() {
       const duration = +$('activity-duration').value;
       if(!duration || duration <= 0) { toast('⚠️ Wpisz poprawny czas trwania'); return; }
 
@@ -1597,7 +1546,6 @@
     function editPastDay(targetDate) {
       if(!confirm(`Czy chcesz otworzyć dzień ${targetDate} do pełnej edycji (dodawanie/modyfikacja posiłków i aktywności)?`)) return;
 
-      // Zamiast nadpisywać całą funkcję today, zmieniamy tylko wartość zwracaną przez bezpieczną zmienną
       getTodayDate = function() { return targetDate; };
 
       initMain();
@@ -1606,7 +1554,6 @@
       $('today-date').innerHTML = `⚠️ TRYB EDYCJI HISTORII: <span style="color:var(--accent3); font-weight:700;">${targetDate}</span>`;
       toast(`✏️ Przełączono na edycję dnia: ${targetDate}`);
     }
-
 </script>
 </body>
 </html>
